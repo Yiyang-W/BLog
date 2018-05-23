@@ -1,7 +1,9 @@
 from flask import Flask
 from pymongo import MongoClient
 from datetime import datetime
+from flask import request
 import hashlib
+import json
 
 client = MongoClient('mongodb://localhost:27017/')
 Blog = client['Blog']
@@ -17,9 +19,9 @@ def hello_world():
 @app.route('/login', methods = ['POST'])
 def login():
 	username = request.form['username']
-	password = request.form['password']
+	password = request.form['password'].encode()
 	md5 = hashlib.md5(password).hexdigest()
-	md5_db = User.fine_one({'username': username})
+	md5_db = User.find_one({'username': username})
 	if md5_db and md5 == md5_db['md5']:
 		return 'Login Success.'
 	else:
@@ -28,9 +30,9 @@ def login():
 @app.route('/register', methods = ['POST'])
 def register():
 	username = request.form['username']
-	password = request.form['password']
+	password = request.form['password'].encode()
 	md5 = hashlib.md5(password).hexdigest()
-	is_exist = User.fine_one({'username': username})
+	is_exist = User.find_one({'username': username})
 	if is_exist:
 		return 'This Username Already Exists.', 403
 	User.insert_one({'username': username, 'md5': md5})
