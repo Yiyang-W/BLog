@@ -12,20 +12,25 @@
 
 API接口：
 
-	'/': 						get类型http访问
+	'/':
+		get类型http访问
 		永远返回'Hello world!'
 
-	'/register':				post类型http访问
+	'/register':
+		post类型http访问
 		post内容为{'username': string, 'password': string}
 		如果正常注册http返回值为200
 
-	'/login': 					post类型http访问
+	'/login':
+		post类型http访问
 		post内容为{'username': string, 'password': string}
 		如果正常注册http返回值为200
 
-	'/post': 					post类型http访问
+	'/post':
+		post类型http访问
 		post内容为{'username': string, 'article': string}
 		如果正常注册http返回值为200
 
-	'/query?username=': 		get类型http访问
+	'/query?username=':
+		get类型http访问
 		返回该用户的所有article
